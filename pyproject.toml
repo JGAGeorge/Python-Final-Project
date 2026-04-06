@@ -1,0 +1,21 @@
+[project]
+name = "e-ecommerce"
+version = "0.1.0"
+description = "Build a simple and secure online shopping platform for learning full-stack development"
+authors = [
+    {name = "josephgeorge.developer@gmail.com"}
+]
+license = {text = "Proprietary"}
+requires-python = ">=3.14"
+dependencies = [
+    "django (>=6.0.3,<7.0.0)",
+    "djangorestframework (>=3.17.1,<4.0.0)",
+    "djangorestframework-simplejwt (>=5.5.1,<6.0.0)",
+    "pillow (>=12.2.0,<13.0.0)",
+    "django-cors-headers (>=4.9.0,<5.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
