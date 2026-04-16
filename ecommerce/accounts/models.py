@@ -26,6 +26,7 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
     address = models.TextField(blank=True)
+    phone = models.CharField(max_length=20, blank=True)
     is_seller = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"

@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from .models import Order, OrderItem
 from cart.models import CartItem
-from products.models import Product
 
 class OrderItemSerializer(serializers.ModelSerializer):
     product_title = serializers.CharField(source='product.title', read_only=True)
@@ -9,8 +8,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrderItem
-        fields = ['id','product','product_title','quantity','product_price']
-
+        fields = ['id', 'product', 'product_title', 'quantity', 'product_price']
 
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(source='orderitem_set', many=True, read_only=True)
@@ -18,7 +16,6 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['id', 'shipping_address', 'status', 'total_price', 'created_at', 'items']
-
 
 class OrderCreateSerializer(serializers.ModelSerializer):
     class Meta:

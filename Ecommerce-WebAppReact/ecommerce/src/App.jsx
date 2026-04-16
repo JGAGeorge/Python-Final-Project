@@ -10,8 +10,16 @@ import CartPage from './pages/CartPage'
 import CheckoutPage from './pages/CheckoutPage'
 import OrdersPage from './pages/OrdersPage'
 import AdminDashboard from './pages/AdminDashboard'
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchProfile } from './features/auth/authSlice';
 
 function App() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+      dispatch(fetchProfile());
+    }, [dispatch]);
 
   return (
     <BrowserRouter>

@@ -1,6 +1,6 @@
 from rest_framework import generics, permissions
-from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.response import Response
 from .models import Order
 from .serializers import OrderSerializer, OrderCreateSerializer
 
@@ -14,7 +14,7 @@ class OrderListCreateAPIView(generics.ListCreateAPIView):
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
-            return OrderSerializer
+            return OrderCreateSerializer
         return OrderSerializer
 
 class OrderRetrieveAPIView(generics.RetrieveAPIView):
@@ -34,12 +34,12 @@ class OrderMarkDeliveredAPIView(APIView):
         try:
             order = Order.objects.get(pk=pk)
         except Order.DoesNotExist:
-            return Response({"detail":"Not found"}, status=404)
+            return Response({"detail": "Not found"}, status=404)
         order.status = 'Delivered'
         order.save()
-        return Response({"status":"Delivered"})
+        return Response({"status": "Delivered"})
     
 class AdminOrderListAPIView(generics.ListAPIView):
-    queryset = Order.objects.all()
+    queryset = Order.objects.all().order_by("-id")
     serializer_class = OrderSerializer
     permission_classes = [permissions.IsAdminUser]

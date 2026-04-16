@@ -1,13 +1,17 @@
 from rest_framework import serializers
 from .models import CartItem
+from products.serializers import ProductSerializer
+from products.models import Product
 
 class CartItemSerializer(serializers.ModelSerializer):
-    product_name = serializers.CharField(source='product.title', read_only=True)
-    total_price = serializers.SerializerMethodField()
+    product = ProductSerializer(read_only=True)
+
+    product_id = serializers.PrimaryKeyRelatedField(
+        queryset=Product.objects.all(),
+        write_only=True,
+        source='product'
+    )
 
     class Meta:
         model = CartItem
-        fields = ['id', 'product', 'product_name', 'quantity', 'total_price']
-
-    def get_total_price(self, obj):
-        return obj.quantity * obj.product.price
+        fields = ['id', 'product', 'product_id', 'quantity']
